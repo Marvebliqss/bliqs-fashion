@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Bliqs Fashion — Style in Motion</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f7f6f2;
+      color: #111;
+      line-height: 1.5;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
+    .navbar {
+      height: 72px;
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f7f6f2;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #e5e3dd;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .logo img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      font-size: 13px;
+    }
+
+    .nav-links a {
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: "";
+      width: 0;
+      height: 1px;
+      background: #111;
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      transition: .3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-icon {
+      border: none;
+      background: transparent;
+      font-size: 19px;
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #111;
+      color: white;
+      font-size: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-btn {
+      display: none;
+      border: none;
+      background: none;
+      font-size: 22px;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero {
+      min-height: 570px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0,0,0,.72),
+          rgba(0,0,0,.20)
+        ),
+        url("images/hero.png");
+
+      background-size: cover;
+      background-position: center;
+      color: white;
+    }
+
+    .hero-content {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .hero-small {
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      opacity: .8;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: .95;
+      letter-spacing: -4px;
+      max-width: 600px;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      max-width: 400px;
+      font-size: 14px;
+      color: #e6e6e6;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+      padding: 14px 22px;
+      border: none;
+      background: white;
+      color: #111;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: .3s;
+    }
+
+    .btn:hover {
+      background: #ddd;
+      transform: translateY(-2px);
+    }
+
+    .hero-side {
+      position: absolute;
+      right: 6%;
+      bottom: 60px;
+      border-left: 1px solid rgba(255,255,255,.7);
+      padding-left: 20px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      line-height: 2;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       GENERAL
+    ========================== */
+
+    .section {
+      padding: 90px 6%;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 7px;
+    }
+
+    .section-title {
+      font-size: 30px;
+      letter-spacing: -1.5px;
+    }
+
+    .view-link {
+      font-size: 12px;
+      border-bottom: 1px solid #111;
+      padding-bottom: 4px;
+    }
+
+    /* =========================
+       COLLECTIONS
+    ========================== */
+
+    .collections {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .collection-card {
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+      color: white;
+      background: #222;
+    }
+
+    .collection-card img {
+      height: 100%;
+      transition: transform .6s;
+    }
+
+    .collection-card:hover img {
+      transform: scale(1.04);
+    }
+
+    .collection-overlay {
+      position: absolute;
+      inset: 0;
+      padding: 35px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(
+        90deg,
+        rgba(0,0,0,.6),
+        transparent
+      );
+    }
+
+    .collection-title {
+      font-size: 26px;
+      line-height: 1.1;
+      max-width: 220px;
+    }
+
+    .collection-description {
+      font-size: 12px;
+      margin-top: 10px;
+      color: #ddd;
+    }
+
+    .small-btn {
+      width: fit-content;
+      background: white;
+      border: none;
+      padding: 11px 15px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       PRODUCTS
+    ========================== */
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .product-image {
+      height: 330px;
+      overflow: hidden;
+      background: #ebe9e3;
+    }
+
+    .product-image img {
+      height: 100%;
+      transition: transform .5s;
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.04);
+    }
+
+    .product-info {
+      padding-top: 13px;
+    }
+
+    .product-name {
+      font-size: 13px;
+      margin-bottom: 5px;
+    }
+
+    .product-price {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .product-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .stock {
+      font-size: 10px;
+      color: #777;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .stock::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #238636;
+    }
+
+    .add-cart {
+      border: 1px solid #ddd;
+      background: transparent;
+      width: 35px;
+      height: 35px;
+      font-size: 16px;
+    }
+
+    .add-cart:hover {
+      background: #111;
+      color: white;
+    }
+
+    /* =========================
+       ABOUT
+    ========================== */
+
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 450px;
+      background: #eeece5;
+    }
+
+    .about-image {
+      min-height: 450px;
+    }
+
+    .about-image img {
+      height: 100%;
+    }
+
+    .about-content {
+      padding: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .about-content h2 {
+      font-size: 40px;
+      line-height: 1;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      max-width: 400px;
+    }
+
+    .about-content p {
+      max-width: 450px;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 25px;
+    }
+
+    .dark-btn {
+      width: fit-content;
+      padding: 13px 20px;
+      background: #111;
+      color: white;
+      border: none;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .features {
+      margin-top: 30px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .feature {
+      font-size: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .feature-icon {
+      font-size: 18px;
+    }
+
+    /* =========================
+       TESTIMONIALS
+    ========================== */
+
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .testimonial {
+      background: #efeee9;
+      padding: 25px;
+      min-height: 190px;
+    }
+
+    .customer {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .customer-name {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .stars {
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .testimonial-text {
+      font-size: 12px;
+      color: #555;
+    }
+
+    /* =========================
+       SOCIAL
+    ========================== */
+
+    .social-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      margin-bottom: 20px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 20px;
+      font-size: 11px;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 7px;
+    }
+
+    .social-grid img {
+      height: 170px;
+      transition: .3s;
+    }
+
+    .social-grid img:hover {
+      opacity: .75;
+    }
+
+    /* =========================
+       CTA
+    ========================== */
+
+    .cta {
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px 8%;
+      color: white;
+      background:
+        linear-gradient(
+          rgba(0,0,0,.65),
+          rgba(0,0,0,.65)
+        ),
+        url("https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1800&q=85");
+
+      background-position: center;
+      background-size: cover;
+    }
+
+    .cta h2 {
+      font-size: 45px;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .cta p {
+      font-size: 12px;
+      color: #ddd;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer {
+      background: #111;
+      color: white;
+      padding: 65px 6% 25px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 50px;
+    }
+
+    .footer-brand {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .footer-brand span {
+      display: block;
+      color: #777;
+      font-size: 11px;
+      font-weight: 400;
+      margin-top: 6px;
+    }
+
+    .footer-title {
+      font-size: 11px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 8px;
+      color: #999;
+      font-size: 11px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #333;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 10px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 900px) {
+
+      .nav-links {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero {
+        min-height: 650px;
+      }
+
+      .hero-side {
+        display: none;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .product-image {
+        height: 300px;
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .about-image {
+        min-height: 350px;
+      }
+
+      .about-content {
+        padding: 50px 6%;
+      }
+
+      .testimonials {
+        grid-template-columns: 1fr;
+      }
+
+      .social-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .social-grid img {
+        height: 150px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .navbar {
+        height: 64px;
+        padding: 0 5%;
+      }
+
+      .logo img {
+        width: 30px;
+        height: 30px;
+      }
+
+      .logo {
+        font-size: 13px;
+      }
+
+      .nav-icons {
+        gap: 14px;
+      }
+
+      .hero {
+        min-height: 600px;
+      }
+
+      .hero-content {
+        width: 90%;
+      }
+
+      .hero h1 {
+        font-size: 54px;
+        letter-spacing: -3px;
+      }
+
+      .section {
+        padding: 65px 5%;
+      }
+
+      .section-title {
+        font-size: 25px;
+      }
+
+      .section-header {
+        align-items: start;
+        gap: 10px;
+      }
+
+      .collections {
+        grid-template-columns: 1fr;
+      }
+
+      .collection-card {
+        height: 280px;
+      }
+
+      .products {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .product-image {
+        height: 220px;
+      }
+
+      .product-name,
+      .product-price {
+        font-size: 11px;
+      }
+
+      .about-content h2 {
+        font-size: 34px;
+      }
+
+      .social-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .social-grid img {
+        height: 180px;
+      }
+
+      .cta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+      }
+
+      .cta h2 {
+        font-size: 36px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+
+  <header class="navbar">
+
+    <a href="#" class="logo">
+      <!-- Replace with your actual logo -->
+      <img src="images/bliqs-logo.png" alt="Bliqs Fashion Logo">
+      <span>Bliqs Fashion</span>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#collections">Collections</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="nav-icons">
+
+      <!---- <button class="nav-icon">
+        ⌕
+      </button>
+      --->
+
+      <button class="nav-icon" onclick="showCart()">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+
+      <button class="menu-btn" onclick="toggleMenu()">
+        ☰
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="hero-small">
+        BLIQS FASHION
+      </div>
+
+      <h1>
+        STYLE 'N<br>
+        MOTION
+      </h1>
+
+      <p>
+        Clean and minimal designs. Timeless pieces.
+        Made for the ones who move different.
+      </p>
+
+      <a href="#shop" class="btn">
+        Shop Collection →
+      </a>
+
+    </div>
+
+    <div class="hero-side">
+      Premium Quality<br>
+      Clean Fit<br>
+      Unisex
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       COLLECTIONS
+  ========================== -->
+
+  <section class="section" id="collections">
+
+    <div class="section-header">
+
+      <div>
+        <div class="eyebrow">
+          Our Collections
+        </div>
+
+        <h2 class="section-title">
+          Featured Collections
+        </h2>
+      </div>
+
+      <a href="#" class="view-link">
+        View all collections →
+      </a>
+
+    </div>
+
+
+    <div class="collections">
+
+      <div class="collection-card">
+
+        <img
+          src="images/primum-collection.jpg"
+          alt="Primum Collection"
+        >
+
+        <div class="collection-overlay">
+
+          <div>
+            <h3 class="collection-title">
+              PRIMUM
+              COLLECTION
+            </h3>
+
+            <p class="collection-description">
+              Minimal. Clean. Quality.
+            </p>
+          </div>
+
+          <button class="small-btn">
+            Shop Tees →
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="collection-card">
+
+        <img
+          src="images/trucker-hats.jpg"
+          alt="Trucker Hats"
+        >
+
+        <div class="collection-overlay">
+
+          <div>
+            <h3 class="collection-title">
+              TRUCKER HATS
+            </h3>
+
+            <p class="collection-description">
+              Light on the head.
+              Heavy on style.
+            </p>
+          </div>
+
+          <button class="small-btn">
+            Shop Hats →
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PRODUCTS
+  ========================== -->
+
+  <section class="section" id="shop">
+
+    <div class="section-header">
+
+      <div>
+        <div class="eyebrow">
+          Bliqs Essentials
+        </div>
+
+        <h2 class="section-title">
+          Featured Products
+        </h2>
+      </div>
+
+      <a href="#" class="view-link">
+        View all products →
+      </a>
+
+    </div>
+
+
+    <div class="products">
+
+
+      <!-- PRODUCT 1 -->
+
+      <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="images/blackhat.png"
+            alt="Black Trucker Hat"
+          >
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            Trucker Hat (Black)
+          </div>
+
+          <div class="product-price">
+            ₦12,000
+          </div>
+
+          <div class="product-bottom">
+
+            <div class="stock">
+              In stock
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Trucker Hat (Black)', 12000)"
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- PRODUCT 2 -->
+
+      <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="images/camo.png"
+            alt="Camo Trucker Hat"
+          >
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            Trucker Hat (Camo)
+          </div>
+
+          <div class="product-price">
+            ₦12,000
+          </div>
+
+          <div class="product-bottom">
+
+            <div class="stock">
+              In stock
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Trucker Hat (Camo)', 12000)"
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- PRODUCT 3 -->
+
+      <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="images/whitetee.png"
+            alt="White Primum Tee"
+          >
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            Primum Tee (White)
+          </div>
+
+          <div class="product-price">
+            ₦18,500
+          </div>
+
+          <div class="product-bottom">
+
+            <div class="stock">
+              Pre-Order
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Primum Tee (White)', 18500)"
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- PRODUCT 4 -->
+
+      <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="images/blacktee.png"
+            alt="Black Primum Tee"
+          >
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            Primum Tee (Black)
+          </div>
+
+          <div class="product-price">
+            ₦18,500
+          </div>
+
+          <div class="product-bottom">
+
+            <div class="stock">
+              Pre-order
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Primum Tee (Black)', 18500)"
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+      <!--product 5-->
+       <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="images/pink.png"
+            alt="Pink Hat"
+          >
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            Trucker Hat (Pink)
+          </div>
+
+          <div class="product-price">
+            ₦12,000
+          </div>
+
+          <div class="product-bottom">
+
+            <div class="stock">
+              Out of stock
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Trucker Hat (Pink)', 12000)"
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+            <!--product 6-->
+       <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="images/blackwhite.png"
+            alt="Black-WhiteHat"
+          >
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            Trucker Hat (Black-White)
+          </div>
+
+          <div class="product-price">
+            ₦12,000
+          </div>
+
+          <div class="product-bottom">
+
+            <div class="stock">
+              Out of Stock
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Trucker Hat (Black-White)', 12000)"
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+            <!--product 7-->
+       <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="images/brownwhite.png"
+            alt="Brown-White hat"
+          >
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            Trucker Hat (Brown-White)
+          </div>
+
+          <div class="product-price">
+            ₦12,000
+          </div>
+
+          <div class="product-bottom">
+
+            <div class="stock">
+              In stock
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Trucker Hat (Brown-White)', 12000)"
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+            <!--product 8-->
+       <article class="product-card">
+
+        <div class="product-image">
+
+          <img
+            src="images/brown.png"
+            alt="Brown hat"
+          >
+
+        </div>
+
+        <div class="product-info">
+
+          <div class="product-name">
+            Trucker Hat (Brown)
+          </div>
+
+          <div class="product-price">
+            ₦12,000
+          </div>
+
+          <div class="product-bottom">
+
+            <div class="stock">
+            In stock
+            </div>
+
+            <button
+              class="add-cart"
+              onclick="addToCart('Trucker Hat(Brown))', 12000)"
+            >
+              🛒
+            </button>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       ABOUT
+  ========================== -->
+
+  <section class="about" id="about">
+
+    <div class="about-image">
+
+      <img
+        src="images/hero1.png"
+        alt="Bliqs Fashion"
+      >
+
+    </div>
+
+
+    <div class="about-content">
+
+      <div class="eyebrow">
+        About Bliqs
+      </div>
+
+      <h2>
+        More Than Just Clothing.
+      </h2>
+
+      <p>
+        Bliqs Fashion started from the small observations from when I was still quite young.
+        The negative shift in our style of dressing. The inavailability of option to 
+        carefully construct one's appearance . The lack of options for simplicity without sacrificing value.
+        Bliqs Fashion is built for the ones that value appearance.
+        Clean, minimal, and intentional fashion that matches
+         your lifestyle and aligns with your story.
+      </p>
+
+      <button class="dark-btn">
+        Our Story →
+      </button>
+
+
+      <div class="features">
+
+        <div class="feature">
+          <span class="feature-icon">◇</span>
+          Premium Quality Materials
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">○</span>
+          Unisex Pieces.
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">✦</span>
+          Clean & Timeless Aesthetic
+        </div>
+
+        <div class="feature">
+          <span class="feature-icon">✦</span>
+          Simple & Minimal Design.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       TESTIMONIALS
+  ========================== -->
+
+  <section class="section">
+
+    <div class="section-header">
+
+      <div>
+        <div class="eyebrow">
+          Real People. Real Style.
+        </div>
+
+        <h2 class="section-title">
+          What Our Customers Say
+        </h2>
+      </div>
+
+    </div>
+
+
+    <div class="testimonials">
+
+
+      <div class="testimonial">
+
+        <div class="customer">
+
+          <div class="avatar">
+            <img
+              src="#"
+              alt=""
+            >
+          </div>
+
+          <div>
+            <div class="customer-name">
+              Ayomide A.
+            </div>
+
+            <div class="stars">
+              ★★★★★
+            </div>
+          </div>
+
+        </div>
+
+        <p class="testimonial-text">
+          "The quality is top notch.
+          I really like it from the packaging."
+        </p>
+
+      </div>
+
+
+      <div class="testimonial">
+
+        <div class="customer">
+
+          <div class="avatar">
+            <img
+              src="#"
+              alt=""
+            >
+          </div>
+
+          <div>
+            <div class="customer-name">
+              Taiwo A.
+            </div>
+
+            <div class="stars">
+              ★★★★★
+            </div>
+          </div>
+
+        </div>
+
+        <p class="testimonial-text">
+          "Clean stitches, premium feel.
+          Really good as a gift too because of the packaging."
+        </p>
+
+      </div>
+
+
+      <div class="testimonial">
+
+        <div class="customer">
+
+          <div class="avatar">
+            <img
+              src="#"
+              alt=""
+            >
+          </div>
+
+          <div>
+            <div class="customer-name">
+              Micheal S.
+            </div>
+
+            <div class="stars">
+              ★★★★★
+            </div>
+          </div>
+
+        </div>
+
+        <p class="testimonial-text">
+          "The trucker hat is light, comfortable
+          and looks even better in person."
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       SOCIAL
+  ========================== -->
+
+  <section class="section">
+
+    <div class="social-header">
+
+      <div>
+
+        <div class="eyebrow">
+          Follow the Journey
+        </div>
+
+        <h2 class="section-title">
+          Style 'n Motion
+        </h2>
+
+      </div>
+
+      <div class="social-links">
+
+        <a href="https://www.instagram.com/bliqsfashion?utm_source=qr&stkn=Ymc30TVsZ2R3N2Ri">
+          Instagram
+        </a>
+
+          <a href="https://www.tiktok.com/@marvebliqsd?_r=1&_t=ZS-99iEVhUR1ds">
+        <a href="">
+          TikTok
+        </a>
+
+          <a href="https://x.com/Marvebliqsdrops">
+          X
+        </a>
+
+      </div>
+
+    </div>
+
+
+    <div class="social-grid">
+
+      <img
+        src="images/img1.jpg"
+        alt=""
+      >
+
+      <img
+        src="images/img2.jpg"
+        alt=""
+      >
+
+      <img
+        src="images/img3.jpg"
+        alt=""
+      >
+
+      <img
+        src="images/img4.jpg"
+        alt=""
+      >
+
+      <img
+        src="images/img5.jpg"
+        alt=""
+      >
+
+      <img
+        src="images/img6.jpg"
+        alt=""
+      >
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CTA
+  ========================== -->
+
+  <section class="cta">
+
+    <div>
+
+      <div class="eyebrow">
+        Ready to Upgrade Your Style?
+      </div>
+
+      <h2>
+        Find Your Style.
+      </h2>
+
+      <p>
+        Shop the latest drops and be part of
+        the Bliqs movement.
+      </p>
+
+    </div>
+
+    <a href="#shop" class="btn">
+      Shop Now →
+    </a>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer id="contact">
+
+    <div class="footer-grid">
+
+      <div>
+
+        <div class="footer-brand">
+          Bliqs Fashion
+
+          <span>
+            Style 'n Motion
+          </span>
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <div class="footer-title">
+          QUICK LINKS
+        </div>
+
+        <div class="footer-links">
+
+          <a href="#home">
+            Home
+          </a>
+
+          <a href="#shop">
+            Shop
+          </a>
+
+          <a href="#collections">
+            Collections
+          </a>
+
+          <a href="#about">
+            About
+          </a>
+
+          <a href="#contact">
+            Contact
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <div class="footer-title">
+          CONTACT US
+        </div>
+
+        <div class="footer-links">
+
+          <a href="mailto:bliqsfashionofficial@gmail.com">
+            bliqsfashionofficial@gmail.com
+          </a>
+
+          <a href="https://wa.me/2348159049189">
+            WhatsApp
+          </a>
+
+        </div>
+
+      </div>
+
+
+      <div>
+
+        <div class="footer-title">
+          FOLLOW US
+        </div>
+
+        <div class="footer-links">
+
+          <a href="https://www.instagram.com/bliqsfashion?utm_source=qr&stkn=Ymc30TVsZ2R3N2Ri">
+            Instagram
+          </a>
+
+          <a href="https://www.tiktok.com/@marvebliqsd?_r=1&_t=ZS-99iEVhUR1ds">
+            TikTok
+          </a>
+
+          <a href="https://x.com/Marvebliqsdrops">
+            X
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>
+        © 2026 Bliqs Fashion. All rights reserved.
+      </span>
+
+      <span>
+        Terms & Conditions &nbsp; | &nbsp; Privacy Policy
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    let cart = [];
+
+    function addToCart(product, price) {
+
+      cart.push({
+        product: product,
+        price: price
+      });
+
+      document.getElementById("cartCount").textContent =
+        cart.length;
+
+      alert(product + " added to cart.");
+
+    }
+
+
+    function showCart() {
+
+      if (cart.length === 0) {
+
+        alert("Your cart is empty.");
+
+        return;
+
+      }
+
+      let message = "Your Cart:\\n\\n";
+
+      let total = 0;
+
+      cart.forEach((item, index) => {
+
+        message +=
+          (index + 1) +
+          ". " +
+          item.product +
+          " — ₦" +
+          item.price.toLocaleString() +
+          "\\n";
+
+        total += item.price;
+
+      });
+
+      message +=
+        "\\nTotal: ₦" +
+        total.toLocaleString();
+
+      alert(message);
+
+    }
+
+
+    function toggleMenu() {
+
+      const nav = document.querySelector(".nav-links");
+
+      if (nav.style.display === "flex") {
+
+        nav.style.display = "none";
+
+      } else {
+
+        nav.style.display = "flex";
+
+        nav.style.position = "absolute";
+        nav.style.top = "64px";
+        nav.style.left = "0";
+        nav.style.right = "0";
+        nav.style.padding = "25px";
+        nav.style.background = "#f7f6f2";
+        nav.style.flexDirection = "column";
+        nav.style.borderBottom = "1px solid #ddd";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
