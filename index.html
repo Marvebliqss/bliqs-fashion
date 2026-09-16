@@ -1744,13 +1744,10 @@ function addToCart(product, price) {
     product: product,
     price: price
   });
-
   document.getElementById("cartCount").textContent = cart.length;
 
   alert(product + " added to cart.");
-
 }
-
 
 function showCart() {
 
@@ -1773,11 +1770,7 @@ function showCart() {
       " — ₦" +
       item.price.toLocaleString() +
       "\n";
-
-    total += item.price;
-
-  });
-
+    total += item.price;});
   message +=
     "\nTotal: ₦" +
     total.toLocaleString();
@@ -1796,9 +1789,6 @@ function showCart() {
   window.open(whatsappURL, "_blank");
 
 }
-
-  
-
       let message = "Your Cart:\\n\\n";
 
       let total = 0;
