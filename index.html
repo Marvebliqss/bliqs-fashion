@@ -623,6 +623,206 @@
     }
 
     /* =========================
+   SLIDE-OUT CART
+========================= */
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .35);
+  opacity: 0;
+  visibility: hidden;
+  transition: .3s ease;
+  z-index: 1998;
+}
+
+.cart-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cart-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  max-width: 90%;
+  height: 100vh;
+  background: #f7f6f2;
+  z-index: 1999;
+
+  display: flex;
+  flex-direction: column;
+
+  transform: translateX(100%);
+  transition: transform .35s ease;
+
+  box-shadow: -10px 0 30px rgba(0,0,0,.08);
+}
+
+.cart-panel.active {
+  transform: translateX(0);
+}
+
+.cart-header {
+  height: 72px;
+  padding: 0 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #e2e0da;
+}
+
+.cart-header h2 {
+  font-size: 18px;
+  letter-spacing: -0.5px;
+}
+
+.cart-close {
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 25px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 18px 0;
+  border-bottom: 1px solid #e2e0da;
+}
+
+.cart-item-info {
+  flex: 1;
+}
+
+.cart-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.cart-item-price {
+  font-size: 12px;
+  color: #666;
+}
+
+.cart-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cart-controls button {
+  width: 27px;
+  height: 27px;
+
+  border: 1px solid #d8d6d0;
+  background: transparent;
+
+  font-size: 15px;
+}
+
+.cart-controls span {
+  font-size: 12px;
+  min-width: 12px;
+  text-align: center;
+}
+
+.cart-remove {
+  border: none !important;
+  background: transparent !important;
+  font-size: 14px !important;
+  color: #888;
+}
+
+.cart-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  color: #777;
+  font-size: 13px;
+}
+
+.cart-bottom {
+  padding: 25px;
+  border-top: 1px solid #e2e0da;
+  background: #f7f6f2;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+
+.cart-total strong {
+  font-size: 16px;
+}
+
+.checkout-btn {
+  width: 100%;
+  padding: 15px;
+
+  border: none;
+  background: #111;
+  color: white;
+
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  cursor: pointer;
+  transition: .3s;
+}
+
+.checkout-btn:hover {
+  background: #333;
+}
+
+
+/* MOBILE CART */
+
+@media (max-width: 600px) {
+
+  .cart-panel {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cart-header {
+    padding: 0 20px;
+  }
+
+  .cart-items {
+    padding: 15px 20px;
+  }
+
+  .cart-bottom {
+    padding: 20px;
+  }
+
+}
+
+    /* =========================
        MOBILE
     ========================== */
 
@@ -690,7 +890,7 @@
 
       .logo img {
         width: 30px;
-        height: 30px;
+        height: 20px;
       }
 
       .logo {
@@ -793,12 +993,12 @@
 
     <a href="#" class="logo">
       <!-- Replace with your actual logo -->
-      <img src="images/bliqs-logo.png" alt="Bliqs Fashion Logo">
+      <img src="images/Bliqslogo.png" alt="Bliqs Fashion Logo">
       <span>Bliqs Fashion</span>
     </a>
 
     <nav class="nav-links">
-      <a href="#">Home</a>
+      <a href="#home">Home</a>
       <a href="#shop">Shop</a>
       <a href="#collections">Collections</a>
       <a href="#about">About</a>
@@ -824,6 +1024,39 @@
     </div>
 
   </header>
+
+  <!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- SLIDE-OUT CART -->
+<aside class="cart-panel" id="cartPanel">
+
+  <div class="cart-header">
+    <h2>Your Cart</h2>
+
+    <button class="cart-close" onclick="closeCart()">
+      ×
+    </button>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <!-- Cart items appear here -->
+  </div>
+
+  <div class="cart-bottom">
+
+    <div class="cart-total">
+      <span>Total</span>
+      <strong>₦<span id="cartTotal">0</span></strong>
+    </div>
+
+    <button class="checkout-btn" onclick="checkoutWhatsApp()">
+      Checkout on WhatsApp →
+    </button>
+
+  </div>
+
+</aside>
 
 
   <!-- =========================
@@ -1175,11 +1408,11 @@
           <div class="product-bottom">
 
             <div class="stock">
-              Out of stock
+              Sold out
             </div>
 
             <button
-              class="add-cart"
+              class="add-cart" disabled
               onclick="addToCart('Trucker Hat (Pink)', 12000)"
             >
               🛒
@@ -1216,11 +1449,11 @@
           <div class="product-bottom">
 
             <div class="stock">
-              Out of Stock
+              Sold out
             </div>
 
             <button
-              class="add-cart"
+              class="add-cart" disabled
               onclick="addToCart('Trucker Hat (Black-White)', 12000)"
             >
               🛒
@@ -1736,49 +1969,230 @@
   ========================== -->
 
   <script>
+
     let cart = [];
 
-function addToCart(product, price) {
+    function addToCart(product, price) {
 
-  cart.push({
-    product: product,
-    price: price
-  });
-  document.getElementById("cartCount").textContent = cart.length;
+  const existingItem = cart.find(
+    item => item.product === product
+  );
 
-  alert(product + " added to cart.");
-}
+  if (existingItem) {
 
-function showCart() {
+    existingItem.quantity++;
 
-  if (cart.length === 0) {
-    alert("Your cart is empty.");
-    return;
+  } else {
+
+    cart.push({
+      product: product,
+      price: price,
+      quantity: 1
+    });
+
   }
 
-  let message = "Hello Bliqs Fashion! 👋🏽\n\n";
-  message += "I'd like to order:\n\n";
+  updateCart();
+
+  openCart();
+}
+
+
+function updateCart() {
+
+  const cartItems = document.getElementById("cartItems");
+  const cartCount = document.getElementById("cartCount");
+  const cartTotal = document.getElementById("cartTotal");
+
+  cartItems.innerHTML = "";
 
   let total = 0;
+  let itemCount = 0;
+
+
+  if (cart.length === 0) {
+
+    cartItems.innerHTML = `
+      <div class="cart-empty">
+        Your cart is empty.
+      </div>
+    `;
+
+  }
+
 
   cart.forEach((item, index) => {
 
+    const itemTotal = item.price * item.quantity;
+
+    total += itemTotal;
+    itemCount += item.quantity;
+
+
+    cartItems.innerHTML += `
+
+      <div class="cart-item">
+
+        <div class="cart-item-info">
+
+          <div class="cart-item-name">
+            ${item.product}
+          </div>
+
+          <div class="cart-item-price">
+            ₦${item.price.toLocaleString()}
+          </div>
+
+        </div>
+
+
+        <div class="cart-controls">
+
+          <button onclick="changeQuantity(${index}, -1)">
+            −
+          </button>
+
+          <span>
+            ${item.quantity}
+          </span>
+
+          <button onclick="changeQuantity(${index}, 1)">
+            +
+          </button>
+
+          <button
+            class="cart-remove"
+            onclick="removeFromCart(${index})"
+          >
+            ×
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  cartCount.textContent = itemCount;
+
+  cartTotal.textContent = total.toLocaleString();
+
+}
+
+
+function changeQuantity(index, amount) {
+
+  cart[index].quantity += amount;
+
+
+  if (cart[index].quantity <= 0) {
+
+    cart.splice(index, 1);
+
+  }
+
+
+  updateCart();
+
+}
+
+
+function removeFromCart(index) {
+
+  cart.splice(index, 1);
+
+  updateCart();
+
+}
+
+
+function openCart() {
+
+  document
+    .getElementById("cartPanel")
+    .classList.add("active");
+
+  document
+    .getElementById("cartOverlay")
+    .classList.add("active");
+
+}
+
+
+function closeCart() {
+
+  document
+    .getElementById("cartPanel")
+    .classList.remove("active");
+
+  document
+    .getElementById("cartOverlay")
+    .classList.remove("active");
+
+}
+
+
+function showCart() {
+
+  openCart();
+
+  updateCart();
+
+}
+
+
+function checkoutWhatsApp() {
+
+  if (cart.length === 0) {
+
+    return;
+
+  }
+
+
+  let message =
+    "Hello Bliqs Fashion! 👋🏽\n\n";
+
+  message +=
+    "I'd like to place an order:\n\n";
+
+
+  let total = 0;
+
+
+  cart.forEach((item, index) => {
+
+    const itemTotal =
+      item.price * item.quantity;
+
+    total += itemTotal;
+
+
     message +=
-      (index + 1) +
-      ". " +
-      item.product +
-      " — ₦" +
-      item.price.toLocaleString() +
-      "\n";
-    total += item.price;});
-  message +=
-    "\nTotal: ₦" +
-    total.toLocaleString();
+      `${index + 1}. ${item.product}\n`;
+
+    message +=
+      `   Quantity: ${item.quantity}\n`;
+
+    message +=
+      `   Price: ₦${itemTotal.toLocaleString()}\n\n`;
+
+  });
+
 
   message +=
-    "\n\nPlease let me know how to proceed with my order.";
+    `Total: ₦${total.toLocaleString()}\n\n`;
 
-  const phoneNumber = "2348159049189";
+  message +=
+    "Please let me know how to proceed with my order.";
+
+
+  const phoneNumber =
+    "2348159049189";
+
 
   const whatsappURL =
     "https://wa.me/" +
@@ -1786,33 +2200,13 @@ function showCart() {
     "?text=" +
     encodeURIComponent(message);
 
-  window.open(whatsappURL, "_blank");
+
+  window.open(
+    whatsappURL,
+    "_blank"
+  );
 
 }
-      let message = "Your Cart:\\n\\n";
-
-      let total = 0;
-
-      cart.forEach((item, index) => {
-
-        message +=
-          (index + 1) +
-          ". " +
-          item.product +
-          " — ₦" +
-          item.price.toLocaleString() +
-          "\\n";
-
-        total += item.price;
-
-      });
-
-      message +=
-        "\\nTotal: ₦" +
-        total.toLocaleString();
-
-      alert(message);
-
 
     function toggleMenu() {
 
